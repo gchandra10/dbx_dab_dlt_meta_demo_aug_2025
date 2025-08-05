@@ -1,8 +1,8 @@
 name: Deploy Databricks DLT Pipeline
 
 on:
-  push:
-    branches: [ main ]
+  # push:
+  #   branches: [ main ]
   workflow_dispatch:
 
 jobs:
@@ -26,8 +26,7 @@ jobs:
         run: databricks bundle validate
 
       - name: Deploy bundle
-        run: databricks bundle deploy
+        run: databricks bundle deploy -t ${{ env.DATABRICKS_BUNDLE_ENV }} 
 
-      # (Optional) Run the pipeline after deployment
-      - name: Run DLT Pipeline
-        run: databricks bundle run <pipeline-resource-name> --refresh-all
+      - name: Run JOB
+        run: databricks bundle run dlt_meta_job -t ${{ env.DATABRICKS_BUNDLE_ENV }}
