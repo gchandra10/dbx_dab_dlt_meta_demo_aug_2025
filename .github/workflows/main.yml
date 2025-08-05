@@ -12,7 +12,7 @@ jobs:
 
     env:
       DATABRICKS_TOKEN: ${{ secrets.SP_TOKEN }}
-      DATABRICKS_BUNDLE_ENV: dev # Use "prod" for production
+      DATABRICKS_BUNDLE_ENV: prod
 
     steps:
       - name: Checkout repository
