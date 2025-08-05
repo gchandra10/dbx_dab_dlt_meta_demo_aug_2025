@@ -1,0 +1,88 @@
+# The main job for dlt-meta demo
+# yaml-language-server: $schema=../bundle_config_schema.json
+
+resources:
+  jobs:
+    dlt_meta_job:
+      name: dlt_meta_job
+      description: "Job to onboard DLT metadata & pipelines"
+
+      # schedule:
+      #   quartz_cron_expression: "0 0 6 * * ?"
+      #   timezone_id: "America/New_York"
+
+      email_notifications:
+        on_success: 
+          - ganesh.chandra@databricks.com
+        on_failure:
+          - ganesh.chandra@databricks.com
+
+      tasks:
+        # - task_key: notebook_task
+        #   job_cluster_key: my_job_cluster
+        #   notebook_task:
+        #     notebook_path: ../src/notebooks/notebook.ipynb
+
+        - task_key: onboard_dlt_meta_task
+          existing_cluster_id: "0805-034038-yqknazdr"
+          # libraries:
+          #   - pypi:
+          #       package: "dlt-meta"
+          spark_python_task:
+            python_file: ${workspace.file_path}/src/onboard_metadata.py
+            parameters:
+              - catalog_database
+              - "gannychan.default"
+              - onboarding_file_path
+              - "/Volumes/gannychan/default/dlt-meta-conf/onboarding_people.json"
+              - bronze_dataflowspec_table
+              - "bronze_dataflowspec_table"
+              - silver_dataflowspec_table
+              - "silver_dataflowspec_table"
+              - env
+              - ${bundle.target}
+              - import_author
+              - "Ganesh Chandra"
+
+          # job_cluster_key: my_job_cluster
+          # environment_key: default
+
+        - task_key: dlt_meta_bronze_people_task
+          description: "Run DLT pipeline for Bronze People"
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.pipeline_dlt_meta_bronze_people.id}
+            full_refresh: true
+          depends_on:
+            - task_key: onboard_dlt_meta_task
+
+        - task_key: dlt_meta_silver_people_task
+          description: "Run DLT pipeline for Silver People"
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.pipeline_dlt_meta_silver_people.id}
+            full_refresh: true
+          depends_on:
+            - task_key: dlt_meta_bronze_people_task
+        
+      # environments: 
+      #   - environment_key: default
+      #     spec: 
+      #       environment_version: "1"
+            # dependencies:
+            #   - dlt-meta
+
+      job_clusters:
+        - job_cluster_key: my_job_cluster
+          new_cluster:
+            spark_version: 16.4.x-photon-scala2.12
+            node_type_id: Standard_D3_v2
+            data_security_mode: SINGLE_USER #UC Enabled
+            num_workers: 0
+            spark_conf:
+              spark.databricks.cluster.profile: singleNode
+              spark.master: "local[*]"
+            custom_tags:
+              ResourceClass: SingleNode
+
+            # autoscale:
+            #     min_workers: 1
+            #     max_workers: 4

@@ -1,0 +1,15 @@
+[
+    {
+        "target_table": "dlt_meta_people_silver",
+        "select_exp": [
+            "id",
+            "concat(firstName,' ',middleName,' ',lastName) as full_name",
+            "gender as gender",
+            "birthDate as birth_date",
+            "ssn as ssn",
+            "salary as salary",
+            "_rescued_data"
+
+        ]
+    }
+]

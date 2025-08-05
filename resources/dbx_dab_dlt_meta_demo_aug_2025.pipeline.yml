@@ -1,0 +1,40 @@
+# The main pipeline for dbx_dab_dlt_meta_demo_aug_2025
+resources:
+  pipelines:
+    pipeline_dlt_meta_bronze_people:
+      name: pipeline_dlt_meta_bronze_people
+      catalog: gannychan
+      schema: default
+      development: true
+      photon: true
+      serverless: true
+      libraries:
+        - notebook:
+            path: ${workspace.file_path}/src/dlt_meta_pipeline
+
+      configuration:
+        layer: bronze
+        bronze.dataflowspecTable: bronze_dataflowspec_table
+        bronze.group: my_csv_dataset
+        bundle.sourcePath: ${workspace.file_path}/src
+
+      budget_policy_id: b63db2af-f829-4167-a88d-fbd716df8c2d
+
+    pipeline_dlt_meta_silver_people:
+      name: pipeline_dlt_meta_silver_people
+      catalog: gannychan
+      schema: default
+      development: true
+      photon: true
+      serverless: true
+      libraries:
+        - notebook:
+            path: ${workspace.file_path}/src/dlt_meta_pipeline
+
+      configuration:
+        layer: silver
+        silver.dataflowspecTable: silver_dataflowspec_table
+        silver.group: my_csv_dataset
+        bundle.sourcePath: ${workspace.file_path}/src
+        
+      budget_policy_id: b63db2af-f829-4167-a88d-fbd716df8c2d

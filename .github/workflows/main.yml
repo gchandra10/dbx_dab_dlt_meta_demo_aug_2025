@@ -1,0 +1,33 @@
+name: Deploy Databricks DLT Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy Databricks DLT Bundle
+    runs-on: ubuntu-latest
+
+    env:
+      DATABRICKS_TOKEN: ${{ secrets.SP_TOKEN }}
+      DATABRICKS_BUNDLE_ENV: dev # Use "prod" for production
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Databricks CLI
+        uses: databricks/setup-cli@main
+
+      # (Optional) Validate bundle before deploying
+      - name: Validate bundle
+        run: databricks bundle validate
+
+      - name: Deploy bundle
+        run: databricks bundle deploy
+
+      # (Optional) Run the pipeline after deployment
+      - name: Run DLT Pipeline
+        run: databricks bundle run <pipeline-resource-name> --refresh-all

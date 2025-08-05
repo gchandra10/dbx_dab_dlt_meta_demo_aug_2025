@@ -1,0 +1,37 @@
+[
+    {
+        "data_flow_id": "007",
+        "data_flow_group": "my_csv_dataset",
+        "source_system": "Manual_Download",
+        "source_format": "cloudFiles",
+        "source_details": {
+            "source_path_dev": "/Volumes/gannychan/default/dlt-meta-data",
+            "source_metadata": {
+                "include_autoloader_metadata_column": "True",
+                "autoloader_metadata_col_name": "source_metadata",
+                "select_metadata_cols": {
+                    "input_file_name": "_metadata.file_name",
+                    "input_file_path": "_metadata.file_path"
+                }
+            }         
+        },
+        "bronze_database_dev": "default",
+        "bronze_table": "dlt_meta_people_bronze",
+        "bronze_cluster_by": ["gender"],
+        "bronze_reader_options": {
+            "cloudFiles.format": "csv",
+            "cloudFiles.inferColumnTypes": "true",
+            "cloudFiles.rescuedDataColumn": "_rescued_data"
+        },
+        "silver_database_dev": "default",
+        "silver_table": "dlt_meta_people_silver",
+        "silver_transformation_json_dev": "/Volumes/gannychan/default/dlt-meta-conf/silver_people.json",
+        "silver_cdc_apply_changes": {
+            "keys": [
+                "id"
+            ],
+            "sequence_by": "id",
+            "scd_type": "1"
+        }
+    }
+]
