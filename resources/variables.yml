@@ -1,0 +1,33 @@
+variables:
+  catalog_name: 
+    description: The catalog name for the pipelines
+    type: string
+    default: gannychan
+  schema_name:
+    description: The schema name for the pipelines
+    type: string
+    default: default
+  photon_enabled:
+    description: Whether Photon is enabled for the pipelines
+    type: boolean
+    default: true
+  serverless_enabled:
+    description: Whether serverless mode is enabled for the pipelines
+    type: boolean
+    default: true
+  bronze_dataflowspecTable:
+    description: The table name for the bronze data flow specification
+    type: string
+    default: bronze_dataflowspec_table
+  silver_dataflowspecTable:
+    description: The table name for the silver data flow specification
+    type: string
+    default: silver_dataflowspec_table
+  author:
+    description: The author of the import
+    type: string
+    default: Ganesh Chandra
+  people_onboarding_file_path:
+    description: The path to the onboarding file for people
+    type: string
+    default: "file:///${workspace.file_path}/conf/onboarding_people.json"

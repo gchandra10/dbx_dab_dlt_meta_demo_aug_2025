@@ -2,39 +2,39 @@
 resources:
   pipelines:
     pipeline_dlt_meta_bronze_people:
-      name: pipeline_dlt_meta_bronze_people
-      catalog: gannychan
-      schema: default
+      name: dlt meta bronze people
+      catalog: ${var.catalog_name}
+      schema: ${var.schema_name}
       development: true
-      photon: true
-      serverless: true
+      photon: ${var.photon_enabled}
+      serverless: ${var.serverless_enabled}
       libraries:
         - notebook:
             path: ${workspace.file_path}/src/dlt_meta_pipeline
 
       configuration:
         layer: bronze
-        bronze.dataflowspecTable: bronze_dataflowspec_table
-        bronze.group: my_csv_dataset
+        bronze.dataflowspecTable: ${var.bronze_dataflowspecTable}
+        bronze.group: my_csv_people
         bundle.sourcePath: ${workspace.file_path}/src
 
       budget_policy_id: b63db2af-f829-4167-a88d-fbd716df8c2d
 
     pipeline_dlt_meta_silver_people:
-      name: pipeline_dlt_meta_silver_people
-      catalog: gannychan
-      schema: default
+      name: dlt meta silver people
+      catalog: ${var.catalog_name}
+      schema: ${var.schema_name}
       development: true
-      photon: true
-      serverless: true
+      photon: ${var.photon_enabled}
+      serverless: ${var.serverless_enabled}
       libraries:
         - notebook:
             path: ${workspace.file_path}/src/dlt_meta_pipeline
 
       configuration:
         layer: silver
-        silver.dataflowspecTable: silver_dataflowspec_table
-        silver.group: my_csv_dataset
+        silver.dataflowspecTable: ${var.silver_dataflowspecTable}
+        silver.group: my_csv_people
         bundle.sourcePath: ${workspace.file_path}/src
         
       budget_policy_id: b63db2af-f829-4167-a88d-fbd716df8c2d

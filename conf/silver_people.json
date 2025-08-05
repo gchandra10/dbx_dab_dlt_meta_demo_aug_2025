@@ -3,13 +3,40 @@
         "target_table": "dlt_meta_people_silver",
         "select_exp": [
             "id",
+            "firstName as first_name",
+            "middleName as middle_name",
+            "lastName as last_name",
+            "gender as gender",
+            "birthDate as birth_date",
+            "ssn as ssn",
+            "salary as salary",
+            "_rescued_data"
+        ]
+    },
+    {
+        "target_table": "dlt_meta_people_silver_sal_above_50K",
+        "select_exp": [
+            "id",
             "concat(firstName,' ',middleName,' ',lastName) as full_name",
             "gender as gender",
             "birthDate as birth_date",
             "ssn as ssn",
             "salary as salary",
             "_rescued_data"
-
-        ]
+        ],
+        "where_clause": ["salary > 50000"]
+    },
+    {
+        "target_table": "dlt_meta_people_silver_sal_below_50K",
+        "select_exp": [
+            "id",
+            "concat(firstName,' ',middleName,' ',lastName) as full_name",
+            "gender as gender",
+            "birthDate as birth_date",
+            "ssn as ssn",
+            "salary as salary",
+            "_rescued_data"
+        ],
+        "where_clause": ["salary <= 50000"]
     }
 ]

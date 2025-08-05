@@ -11,11 +11,11 @@ resources:
       #   quartz_cron_expression: "0 0 6 * * ?"
       #   timezone_id: "America/New_York"
 
-      email_notifications:
-        on_success: 
-          - ganesh.chandra@databricks.com
-        on_failure:
-          - ganesh.chandra@databricks.com
+      # email_notifications:
+      #   on_success: 
+      #     - your@email.com
+      #   on_failure:
+      #     - your@email.com
 
       tasks:
         # - task_key: notebook_task
@@ -25,26 +25,26 @@ resources:
 
         - task_key: onboard_dlt_meta_task
           existing_cluster_id: "0805-034038-yqknazdr"
-          # libraries:
-          #   - pypi:
-          #       package: "dlt-meta"
           spark_python_task:
             python_file: ${workspace.file_path}/src/onboard_metadata.py
             parameters:
-              - catalog_database
-              - "gannychan.default"
-              - onboarding_file_path
-              - "/Volumes/gannychan/default/dlt-meta-conf/onboarding_people.json"
-              - bronze_dataflowspec_table
-              - "bronze_dataflowspec_table"
-              - silver_dataflowspec_table
-              - "silver_dataflowspec_table"
-              - env
+              - --catalog_database
+              - ${var.catalog_name}.${var.schema_name}
+              - --onboarding_file_path
+              - ${var.people_onboarding_file_path}
+              - --bronze_dataflowspec_table
+              - ${var.bronze_dataflowspecTable}
+              - --silver_dataflowspec_table
+              - ${var.silver_dataflowspecTable}
+              - --env
               - ${bundle.target}
-              - import_author
-              - "Ganesh Chandra"
+              - --import_author
+              - ${var.author}
 
           # job_cluster_key: my_job_cluster
+          # libraries:
+          #   - pypi:
+          #       package: "dlt-meta"
           # environment_key: default
 
         - task_key: dlt_meta_bronze_people_task

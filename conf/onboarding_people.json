@@ -1,7 +1,7 @@
 [
     {
         "data_flow_id": "007",
-        "data_flow_group": "my_csv_dataset",
+        "data_flow_group": "my_csv_people",
         "source_system": "Manual_Download",
         "source_format": "cloudFiles",
         "source_details": {
@@ -15,15 +15,16 @@
                 }
             }         
         },
-        "bronze_database_dev": "default",
+        "bronze_database_dev": "gannychan.default",
         "bronze_table": "dlt_meta_people_bronze",
+        "bronze_quarantine_table": "dlt_meta_people_bronze_quarantine",
         "bronze_cluster_by": ["gender"],
         "bronze_reader_options": {
             "cloudFiles.format": "csv",
             "cloudFiles.inferColumnTypes": "true",
             "cloudFiles.rescuedDataColumn": "_rescued_data"
         },
-        "silver_database_dev": "default",
+        "silver_database_dev": "gannychan.default",
         "silver_table": "dlt_meta_people_silver",
         "silver_transformation_json_dev": "/Volumes/gannychan/default/dlt-meta-conf/silver_people.json",
         "silver_cdc_apply_changes": {
