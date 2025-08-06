@@ -24,7 +24,7 @@ resources:
         #     notebook_path: ../src/notebooks/notebook.ipynb
 
         - task_key: onboard_dlt_meta_task
-          existing_cluster_id: "0805-034038-yqknazdr"
+          # existing_cluster_id: "0805-034038-yqknazdr"
           spark_python_task:
             python_file: ${workspace.file_path}/src/onboard_metadata.py
             parameters:
@@ -41,10 +41,11 @@ resources:
               - --import_author
               - ${var.author}
 
-          # job_cluster_key: my_job_cluster
-          # libraries:
-          #   - pypi:
-          #       package: "dlt-meta"
+          job_cluster_key: my_job_cluster
+          libraries:
+            - pypi:
+                package: "dlt-meta"
+
           # environment_key: default
 
         - task_key: dlt_meta_bronze_people_task
@@ -82,7 +83,3 @@ resources:
               spark.master: "local[*]"
             custom_tags:
               ResourceClass: SingleNode
-
-            # autoscale:
-            #     min_workers: 1
-            #     max_workers: 4
