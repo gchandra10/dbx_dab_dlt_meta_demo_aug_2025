@@ -5,7 +5,7 @@
         "source_system": "Manual_Download",
         "source_format": "cloudFiles",
         "source_details": {
-            "source_path_dev": "/Volumes/gannychan/default/dlt-meta-data",
+            "source_path_dev": "/Volumes/gannychan/default/dlt-meta-data/people.csv",
             "source_metadata": {
                 "include_autoloader_metadata_column": "True",
                 "autoloader_metadata_col_name": "source_metadata",

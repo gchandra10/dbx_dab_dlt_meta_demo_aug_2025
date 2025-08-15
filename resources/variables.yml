@@ -31,3 +31,7 @@ variables:
     description: The path to the onboarding file for people
     type: string
     default: "file:///${workspace.file_path}/conf/onboarding_people.json"
+  dummy_param:
+    description: A dummy parameter for testing purposes
+    type: string
+    default: "Hello Bronze 2"

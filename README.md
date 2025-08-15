@@ -66,8 +66,16 @@ DABS will create a folder with project name
 
 6. To run a job or pipeline, use the "run" command:
 
+   **Initialize the Onboarding Job**
+
    ```
    $ databricks bundle run dlt_meta_job -t dev
+   ```
+
+   **Run the DLT Pipeline**
+   
+   ```
+   $ databricks bundle run dlt_pipelines_job -t dev
    ```
 
 7. To delete the Job
@@ -86,6 +94,10 @@ DABS will create a folder with project name
 
 ```people_onboarding_file_path``` points to workspace location instead of Volume.
 
+
+Refer the DLT-META Sourcecode to find treasures not shown in Examples/Demos.
+
+https://github.com/databrickslabs/dlt-meta/blob/ee9a895bb0cbddf01df19c231a2ac3661250a59c/src/dataflow_pipeline.py
 
 
 Optionally, install developer tools such as the Databricks extension for Visual Studio Code from
