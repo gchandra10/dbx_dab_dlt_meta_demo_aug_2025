@@ -31,7 +31,19 @@ variables:
     description: The path to the onboarding file for people
     type: string
     default: "file:///${workspace.file_path}/conf/onboarding_people.json"
+  people_fanout_onboarding_file_path:
+    description: The path to the onboarding file for people
+    type: string
+    default: "file:///${workspace.file_path}/conf/onboarding_fanout_people.json"
   dummy_param:
     description: A dummy parameter for testing purposes
     type: string
     default: "Hello Bronze 2"
+  version:
+    description: The version of the data flow specification
+    type: string
+    default: "v1"
+  uc_enabled:
+    description: Whether Unity Catalog is enabled for the pipelines
+    type: boolean
+    default: "True"

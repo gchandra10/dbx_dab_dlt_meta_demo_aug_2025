@@ -7,22 +7,7 @@ resources:
       name: dlt_meta_job
       description: "Job to onboard DLT META data"
 
-      # schedule:
-      #   quartz_cron_expression: "0 0 6 * * ?"
-      #   timezone_id: "America/New_York"
-
-      # email_notifications:
-      #   on_success: 
-      #     - your@email.com
-      #   on_failure:
-      #     - your@email.com
-
       tasks:
-        # - task_key: notebook_task
-        #   job_cluster_key: my_job_cluster
-        #   notebook_task:
-        #     notebook_path: ../src/notebooks/notebook.ipynb
-
         - task_key: onboard_dlt_meta_task
           existing_cluster_id: "0805-034038-yqknazdr"
           spark_python_task:
@@ -40,54 +25,41 @@ resources:
               - ${bundle.target}
               - --import_author
               - ${var.author}
+              - --overwrite
+              - "True"
+              - --version
+              - ${var.version}
+              - --onboard_layer
+              - "bronze_silver"
+              - --uc_enabled
+              - ${var.uc_enabled}
 
-          # job_cluster_key: my_job_cluster
-          # libraries:
-          #   - pypi:
-          #       package: "dlt-meta"
-
-          # environment_key: default
-        
-      # environments: 
-      #   - environment_key: default
-      #     spec: 
-      #       environment_version: "1"
-            # dependencies:
-            #   - dlt-meta
-
-      job_clusters:
-        - job_cluster_key: my_job_cluster
-          new_cluster:
-            spark_version: 16.4.x-photon-scala2.12
-            node_type_id: Standard_D3_v2
-            data_security_mode: SINGLE_USER #UC Enabled
-            num_workers: 0
-            spark_conf:
-              spark.databricks.cluster.profile: singleNode
-              spark.master: "local[*]"
-            custom_tags:
-              ResourceClass: SingleNode
+        - task_key: onboard_fanout_dlt_meta_task
+          existing_cluster_id: "0805-034038-yqknazdr"
+          # spark_python_task:
+          #   python_file: ${workspace.file_path}/src/onboard_fanout_metadata.py
+          #   parameters:
+          python_wheel_task:
+            package_name: dlt_meta
+            entry_point: run
+            named_parameters:
+              database: ${var.catalog_name}.${var.schema_name}
+              onboarding_file_path: ${var.people_fanout_onboarding_file_path}
+              silver_dataflowspec_table: ${var.silver_dataflowspecTable}
+              uc_enabled: "True"
+              import_author: Ganesh
+              version: v1
+              onboard_layer: silver
+              overwrite: "False"
+              env: dev
+          depends_on:
+            - task_key: onboard_dlt_meta_task
 
     dlt_pipelines_job:
       name: dlt_pipelines_job
       description: "Job to deploy the Bronze and Silver DLT-META pipelines"
 
-      # schedule:
-      #   quartz_cron_expression: "0 0 6 * * ?"
-      #   timezone_id: "America/New_York"
-
-      # email_notifications:
-      #   on_success: 
-      #     - your@email.com
-      #   on_failure:
-      #     - your@email.com
-
       tasks:
-        # - task_key: notebook_task
-        #   job_cluster_key: my_job_cluster
-        #   notebook_task:
-        #     notebook_path: ../src/notebooks/notebook.ipynb
-
         - task_key: dlt_meta_bronze_people_task
           description: "Run DLT pipeline for Bronze People"
           pipeline_task:
@@ -101,23 +73,3 @@ resources:
             full_refresh: true
           depends_on:
             - task_key: dlt_meta_bronze_people_task
-        
-      # environments: 
-      #   - environment_key: default
-      #     spec: 
-      #       environment_version: "1"
-            # dependencies:
-            #   - dlt-meta
-
-      job_clusters:
-        - job_cluster_key: my_job_cluster
-          new_cluster:
-            spark_version: 16.4.x-photon-scala2.12
-            node_type_id: Standard_D3_v2
-            data_security_mode: SINGLE_USER #UC Enabled
-            num_workers: 0
-            spark_conf:
-              spark.databricks.cluster.profile: singleNode
-              spark.master: "local[*]"
-            custom_tags:
-              ResourceClass: SingleNode

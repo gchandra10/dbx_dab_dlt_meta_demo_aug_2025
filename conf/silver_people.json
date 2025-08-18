@@ -3,11 +3,12 @@
         "target_table": "dlt_meta_people_silver",
         "select_exp": [
             "id",
+            "md5(concat_ws('-',firstName, middleName, lastName,gender,birthDate,ssn)) as row_id",
             "firstName as first_name",
             "middleName as middle_name",
             "lastName as last_name",
             "gender as gender",
-            "birthDate as birth_date",
+            "gannychan.default.format_iso_date(birthDate) as birth_date",
             "ssn as ssn",
             "salary as salary",
             "_rescued_data"
