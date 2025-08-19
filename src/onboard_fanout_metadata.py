@@ -36,4 +36,4 @@ onboarding_params_map["import_author"] = import_author
 print(type(onboarding_params_map))
 print(f"Onboarding parameters: {onboarding_params_map}")
 
-OnboardDataflowspec(spark, onboarding_params_map, uc_enabled=True).onboard_dataflow_specs()
+OnboardDataflowspec(spark, onboarding_params_map, uc_enabled=True).onboard_silver_dataflow_spec()

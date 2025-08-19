@@ -36,24 +36,49 @@ resources:
 
         - task_key: onboard_fanout_dlt_meta_task
           existing_cluster_id: "0805-034038-yqknazdr"
-          # spark_python_task:
-          #   python_file: ${workspace.file_path}/src/onboard_fanout_metadata.py
-          #   parameters:
-          python_wheel_task:
-            package_name: dlt_meta
-            entry_point: run
-            named_parameters:
-              database: ${var.catalog_name}.${var.schema_name}
-              onboarding_file_path: ${var.people_fanout_onboarding_file_path}
-              silver_dataflowspec_table: ${var.silver_dataflowspecTable}
-              uc_enabled: "True"
-              import_author: Ganesh
-              version: v1
-              onboard_layer: silver
-              overwrite: "False"
-              env: dev
+          spark_python_task:
+            python_file: ${workspace.file_path}/src/onboard_fanout_metadata.py
+            parameters:
+              - --catalog_database
+              - ${var.catalog_name}.${var.schema_name}
+              - --onboarding_file_path
+              - ${var.people_fanout_onboarding_file_path}
+              - --silver_dataflowspec_table
+              - ${var.silver_dataflowspecTable}
+              - --env
+              - ${bundle.target}
+              - --import_author
+              - ${var.author}
+              - --overwrite
+              - "False"
+              - --version
+              - ${var.version}
+              - --onboard_layer
+              - "silver"
+              - --uc_enabled
+              - ${var.uc_enabled}
           depends_on:
             - task_key: onboard_dlt_meta_task
+
+        # This is alternative way using dlt_meta wheel package
+        
+        # - task_key: onboard_fanout_dlt_meta_task
+        #   existing_cluster_id: "0805-034038-yqknazdr"
+        #   python_wheel_task:
+        #     package_name: dlt_meta
+        #     entry_point: run
+        #     named_parameters:
+        #       database: ${var.catalog_name}.${var.schema_name}
+        #       onboarding_file_path: ${var.people_fanout_onboarding_file_path}
+        #       silver_dataflowspec_table: ${var.silver_dataflowspecTable}
+        #       uc_enabled: "True"
+        #       import_author: Ganesh
+        #       version: v1
+        #       onboard_layer: silver
+        #       overwrite: "False"
+        #       env: dev
+        #   depends_on:
+        #     - task_key: onboard_dlt_meta_task
 
     dlt_pipelines_job:
       name: dlt_pipelines_job
