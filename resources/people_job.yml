@@ -58,7 +58,7 @@ resources:
       environments: 
         - environment_key: default
           spec: 
-            environment_version: "1"
+            client: "1"
             dependencies:
               - dlt-meta
 
