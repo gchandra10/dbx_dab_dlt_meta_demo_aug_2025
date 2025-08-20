@@ -2,15 +2,19 @@ variables:
   dev_catalog_name: 
     description: The catalog name for the pipelines
     type: string
-    default: gannychan
+    default: dltmeta_catalog_dev
   prod_catalog_name: 
     description: The catalog name for the pipelines
     type: string
-    default: gannychan1
+    default: dltmeta_catalog_prod
   schema_name:
     description: The schema name for the pipelines
     type: string
     default: default
+  serverless_budget_policy_id:
+    description: The budget policy ID for the pipelines
+    type: string
+    default: b63db2af-f829-4167-a88d-fbd716df8c2d
   photon_enabled:
     description: Whether Photon is enabled for the pipelines
     type: bool
@@ -30,15 +34,15 @@ variables:
   author:
     description: The author of the import
     type: string
-    default: Ganesh Chandra
+    default: Author
   people_onboarding_file_path:
     description: The path to the onboarding file for people
     type: string
-    default: "file:///${workspace.file_path}/conf/onboarding_bronze_silver_people.json"
+    default: "/Volumes/dltmeta_catalog_dev/default/dlt-meta-conf/onboarding_bronze_silver_people.json"
   people_fanout_onboarding_file_path:
     description: The path to the onboarding file for people
     type: string
-    default: "file:///${workspace.file_path}/conf/onboarding_silver_fanout_people.json"
+    default: "/Volumes/dltmeta_catalog_dev/default/dlt-meta-conf/onboarding_silver_fanout_people.json"
   dummy_param:
     description: A dummy parameter for testing purposes
     type: string
@@ -59,7 +63,12 @@ variables:
     description: Whether production development mode is enabled for the pipelines
     type: bool
     default: false
-  budget_policy_id:
-    description: The budget policy ID for the pipelines
-    type: string
-    default: b63db2af-f829-4167-a88d-fbd716df8c2d
+
+  # spark_version:
+  #   description: The Spark version for the pipelines
+  #   type: string
+  #   default: "16.4.x-photon-scala2.12"
+  # node_type_id:
+  #   description: The node type ID for the pipelines
+  #   type: string
+  #   default: Standard_D3_v2

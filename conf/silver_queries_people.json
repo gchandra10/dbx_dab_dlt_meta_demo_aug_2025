@@ -8,9 +8,10 @@
             "middleName as middle_name",
             "lastName as last_name",
             "gender as gender",
-            "gannychan.default.format_iso_date(birthDate) as birth_date",
+            "birthDate as birth_date",
             "ssn as ssn",
             "salary as salary",
+            "country as country",
             "_rescued_data"
         ]
     },
@@ -24,6 +25,7 @@
             "birthDate as birth_date",
             "ssn as ssn",
             "salary as salary",
+            "country as country",
             "_rescued_data"
         ],
         "where_clause": ["salary > 50000"]
@@ -38,6 +40,7 @@
             "birthDate as birth_date",
             "ssn as ssn",
             "salary as salary",
+            "country as country",
             "_rescued_data"
         ],
         "where_clause": ["salary <= 50000"]

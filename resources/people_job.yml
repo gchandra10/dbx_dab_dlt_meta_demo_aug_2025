@@ -9,9 +9,9 @@ resources:
 
       tasks:
         - task_key: onboard_bronze_silver_tables
-          libraries:
-            - pypi:
-                package: "dlt-meta"
+          # libraries:
+          #   - pypi:
+          #       package: "dlt-meta"
           python_wheel_task:
             package_name: dlt_meta
             entry_point: run
@@ -27,13 +27,14 @@ resources:
               overwrite: "True"
               env: ${bundle.target}
 
-          job_cluster_key: my_job_cluster
+          # job_cluster_key: my_job_cluster
+          environment_key: default
 
 
         - task_key: onboard_silver_fanout_tables
-          libraries:
-            - pypi:
-                package: "dlt-meta"
+          # libraries:
+          #   - pypi:
+          #       package: "dlt-meta"
           # existing_cluster_id: "0805-034038-yqknazdr"
           python_wheel_task:
             package_name: dlt_meta
@@ -51,21 +52,28 @@ resources:
           depends_on:
             - task_key: onboard_bronze_silver_tables
 
-          job_cluster_key: my_job_cluster
+          # job_cluster_key: my_job_cluster
+          environment_key: default
 
+      environments: 
+        - environment_key: default
+          spec: 
+            environment_version: "1"
+            dependencies:
+              - dlt-meta
 
-      job_clusters:
-        - job_cluster_key: my_job_cluster
-          new_cluster:
-            spark_version: 16.4.x-photon-scala2.12
-            node_type_id: Standard_D3_v2
-            data_security_mode: SINGLE_USER #UC Enabled
-            num_workers: 0
-            spark_conf:
-              spark.databricks.cluster.profile: singleNode
-              spark.master: "local[*]"
-            custom_tags:
-              ResourceClass: SingleNode
+      # job_clusters:
+      #   - job_cluster_key: my_job_cluster
+      #     new_cluster:
+      #       spark_version: ${var.spark_version}
+      #       node_type_id: ${var.node_type_id}
+      #       data_security_mode: SINGLE_USER #UC Enabled
+      #       num_workers: 0
+      #       spark_conf:
+      #         spark.databricks.cluster.profile: singleNode
+      #         spark.master: "local[*]"
+      #       custom_tags:
+      #         ResourceClass: SingleNode
 
     execute_pipelines_people:
       name: People - Raw_Br_Si Job

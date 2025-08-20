@@ -7,8 +7,8 @@
         "source_format": "cloudFiles",
 
         "source_details": {
-            "source_path_dev": "/Volumes/gannychan/default/dlt-meta-data/people.csv",
-            "source_path_prod": "/Volumes/gannychan1/default/dlt-meta-data/people.csv",
+            "source_path_dev": "/Volumes/dltmeta_catalog_dev/default/dlt-meta-data/people.csv",
+            "source_path_prod": "/Volumes/dltmeta_catalog_prod/default/dlt-meta-data/people.csv",
             "source_metadata": {
                 "include_autoloader_metadata_column": "True",
                 "autoloader_metadata_col_name": "source_metadata",
@@ -19,12 +19,12 @@
             }         
         },
 
-        "bronze_database_dev": "gannychan.default",
-        "bronze_database_prod": "gannychan1.default",
+        "bronze_database_dev": "dltmeta_catalog_dev.default",
+        "bronze_database_prod": "dltmeta_catalog_prod.default",
 
         "bronze_table": "people_bronze",
         "bronze_quarantine_table": "people_bronze_quarantine",
-        "bronze_cluster_by": ["gender"],
+        "bronze_cluster_by": ["country"],
 
         "bronze_table_properties" : {
             "pipelines.autoOptimize.managed": "true", 
@@ -44,11 +44,11 @@
             "cloudFiles.rescuedDataColumn": "_rescued_data"
         },
 
-        "silver_database_dev": "gannychan.default",
-        "silver_database_prod": "gannychan1.default",
+        "silver_database_dev": "dltmeta_catalog_dev.default",
+        "silver_database_prod": "dltmeta_catalog_prod.default",
 
         "silver_table": "people_silver",
-        "silver_cluster_by": ["gender"],
+        "silver_cluster_by": ["country"],
 
         "silver_table_properties" : {
             "pipelines.autoOptimize.managed": "true", 
@@ -62,11 +62,11 @@
             "delta.logRetentionDuration": "30 days"
         },
 
-        "silver_transformation_json_dev": "/Volumes/gannychan/default/dlt-meta-conf/silver_queries_people.json",
-        "silver_data_quality_expectations_json_dev": "/Volumes/gannychan/default/dlt-meta-conf/dqe/dqe_silver_people.json",
+        "silver_transformation_json_dev": "/Volumes/dltmeta_catalog_dev/default/dlt-meta-conf/silver_queries_people.json",
+        "silver_data_quality_expectations_json_dev": "/Volumes/dltmeta_catalog_dev/default/dlt-meta-conf/dqe/dqe_silver_people.json",
 
-        "silver_transformation_json_prod": "/Volumes/gannychan1/default/dlt-meta-conf/silver_queries_people.json",
-        "silver_data_quality_expectations_json_prod": "/Volumes/gannychan1/default/dlt-meta-conf/dqe/dqe_silver_people.json",
+        "silver_transformation_json_prod": "/Volumes/dltmeta_catalog_prod/default/dlt-meta-conf/silver_queries_people.json",
+        "silver_data_quality_expectations_json_prod": "/Volumes/dltmeta_catalog_prod/default/dlt-meta-conf/dqe/dqe_silver_people.json",
 
         "silver_cdc_apply_changes": {
             "keys": [
