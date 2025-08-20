@@ -15,6 +15,18 @@ This project demonstrates how to deploy a DLT-META project using DABS and VSCode
 
 ## Pre-requisite
 
+**Windows Users**
+
+```
+SET DATABRICKS_HOST=<>
+```
+
+**Mac Users**
+
+```
+export DATABRICKS_HOST=<>
+```
+
 - Assumes you have latest Databricks CLI installed and configured to your workspace.
   
    ```

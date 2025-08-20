@@ -23,13 +23,15 @@ targets:
     # See also https://docs.databricks.com/dev-tools/bundles/deployment-modes.html.
     mode: development
     default: true
+    #SET DATABRICKS_HOST=<your-databricks-workspace-url>
     workspace:
-      host: https://adb-984752964297111.11.azuredatabricks.net
+      host: https://
 
   prod:
     mode: production
     workspace:
-      host: https://adb-984752964297111.11.azuredatabricks.net
+      #SET DATABRICKS_HOST=<your-databricks-workspace-url>
+      # host: https://
       # We explicitly deploy to /Workspace/Users/${bundle.name} to make sure we only have a single copy.
       root_path: /Workspace/Shared/${bundle.name}/.bundle/${bundle.target}
       # Remember to set the correct group name for production deployments.
