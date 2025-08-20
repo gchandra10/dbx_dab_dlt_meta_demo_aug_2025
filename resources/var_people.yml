@@ -11,10 +11,6 @@ variables:
     description: The schema name for the pipelines
     type: string
     default: default
-  serverless_budget_policy_id:
-    description: The budget policy ID for the pipelines
-    type: string
-    default: b63db2af-f829-4167-a88d-fbd716df8c2d
   photon_enabled:
     description: Whether Photon is enabled for the pipelines
     type: bool

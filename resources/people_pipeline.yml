@@ -19,8 +19,6 @@ resources:
         bronze.group: my_people
         bundle.sourcePath: ${workspace.file_path}/src
 
-      budget_policy_id: ${var.serverless_budget_policy_id}
-
     pipeline_silver_people:
       name: People - B2S Pipeline
       catalog: ${var.${bundle.target}_catalog_name}
@@ -39,4 +37,3 @@ resources:
         silver.group: my_people
         bundle.sourcePath: ${workspace.file_path}/src
         
-      budget_policy_id: ${var.serverless_budget_policy_id}
