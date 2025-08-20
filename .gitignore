@@ -1,11 +1,30 @@
-.databricks/
-build/
-dist/
+# Python
 __pycache__/
-*.egg-info
-.venv/
-scratch/**
-!scratch/README.md
-.DS_Store
 *.pyc
-.code-workspace
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+*.log
+
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Databricks local bundle state
+.databricks/
+*.env   # e.g. .databricks.env with secrets
+
+# IDE/editor
+.vscode/
+*.code-workspace
+.idea/
+
+# Jupyter
+.ipynb_checkpoints/
+scratch/
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,19 +1,23 @@
 variables:
-  catalog_name: 
+  dev_catalog_name: 
     description: The catalog name for the pipelines
     type: string
     default: gannychan
+  prod_catalog_name: 
+    description: The catalog name for the pipelines
+    type: string
+    default: gannychan1
   schema_name:
     description: The schema name for the pipelines
     type: string
     default: default
   photon_enabled:
     description: Whether Photon is enabled for the pipelines
-    type: boolean
+    type: bool
     default: true
   serverless_enabled:
     description: Whether serverless mode is enabled for the pipelines
-    type: boolean
+    type: bool
     default: true
   bronze_dataflowspecTable:
     description: The table name for the bronze data flow specification
@@ -30,11 +34,11 @@ variables:
   people_onboarding_file_path:
     description: The path to the onboarding file for people
     type: string
-    default: "file:///${workspace.file_path}/conf/onboarding_people.json"
+    default: "file:///${workspace.file_path}/conf/onboarding_bronze_silver_people.json"
   people_fanout_onboarding_file_path:
     description: The path to the onboarding file for people
     type: string
-    default: "file:///${workspace.file_path}/conf/onboarding_fanout_people.json"
+    default: "file:///${workspace.file_path}/conf/onboarding_silver_fanout_people.json"
   dummy_param:
     description: A dummy parameter for testing purposes
     type: string
@@ -45,5 +49,17 @@ variables:
     default: "v1"
   uc_enabled:
     description: Whether Unity Catalog is enabled for the pipelines
-    type: boolean
-    default: "True"
+    type: bool
+    default: true
+  dev_development_enabled:
+    description: Whether development mode is enabled for the pipelines
+    type: bool
+    default: true
+  prod_development_enabled:
+    description: Whether production development mode is enabled for the pipelines
+    type: bool
+    default: false
+  budget_policy_id:
+    description: The budget policy ID for the pipelines
+    type: string
+    default: b63db2af-f829-4167-a88d-fbd716df8c2d

@@ -1,6 +1,6 @@
 [
     {
-        "target_table": "dlt_meta_people_silver",
+        "target_table": "people_silver",
         "select_exp": [
             "id",
             "md5(concat_ws('-',firstName, middleName, lastName,gender,birthDate,ssn)) as row_id",
@@ -15,9 +15,10 @@
         ]
     },
     {
-        "target_table": "dlt_meta_people_silver_sal_above_50K",
+        "target_table": "people_silver_sal_above_50K",
         "select_exp": [
             "id",
+            "md5(concat_ws('-',firstName, middleName, lastName,gender,birthDate,ssn)) as row_id",
             "concat(firstName,' ',middleName,' ',lastName) as full_name",
             "gender as gender",
             "birthDate as birth_date",
@@ -28,9 +29,10 @@
         "where_clause": ["salary > 50000"]
     },
     {
-        "target_table": "dlt_meta_people_silver_sal_below_50K",
+        "target_table": "people_silver_sal_below_50K",
         "select_exp": [
             "id",
+            "md5(concat_ws('-',firstName, middleName, lastName,gender,birthDate,ssn)) as row_id",
             "concat(firstName,' ',middleName,' ',lastName) as full_name",
             "gender as gender",
             "birthDate as birth_date",
