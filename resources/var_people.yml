@@ -59,12 +59,3 @@ variables:
     description: Whether production development mode is enabled for the pipelines
     type: bool
     default: false
-
-  # spark_version:
-  #   description: The Spark version for the pipelines
-  #   type: string
-  #   default: "16.4.x-photon-scala2.12"
-  # node_type_id:
-  #   description: The node type ID for the pipelines
-  #   type: string
-  #   default: Standard_D3_v2
