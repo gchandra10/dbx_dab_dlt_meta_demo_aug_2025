@@ -82,10 +82,19 @@ conf/dqe/
    databricks bundle run onboard_people -t dev
    ```
 
-- Run the pipelines job to cre
+- Run the pipelines job to run Bronze and Silver pipelines
 
    ```
    databricks bundle run execute_pipelines_people -t dev
    ```
 
+- Destroy the Pipelines
+
+   ```
+   databricks bundle destroy -t dev
+   ```
+
+   ```
+   databricks bundle destroy -t prod
+   ```
 

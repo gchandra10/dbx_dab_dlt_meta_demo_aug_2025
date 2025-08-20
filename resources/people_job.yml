@@ -9,76 +9,63 @@ resources:
 
       tasks:
         - task_key: onboard_bronze_silver_tables
-          existing_cluster_id: "0805-034038-yqknazdr"
-          spark_python_task:
-            python_file: ${workspace.file_path}/src/onboard_bronze_silver_metadata_people.py
-            parameters:
-              - --catalog_database
-              - ${var.${bundle.target}_catalog_name}.${var.schema_name}
-              - --onboarding_file_path
-              - ${var.people_onboarding_file_path}
-              - --bronze_dataflowspec_table
-              - ${var.bronze_dataflowspecTable}
-              - --silver_dataflowspec_table
-              - ${var.silver_dataflowspecTable}
-              - --env
-              - ${bundle.target}
-              - --import_author
-              - ${var.author}
-              - --overwrite
-              - "True"
-              - --version
-              - ${var.version}
-              - --onboard_layer
-              - "bronze_silver"
-              - --uc_enabled
-              - ${var.uc_enabled}
+          libraries:
+            - pypi:
+                package: "dlt-meta"
+          python_wheel_task:
+            package_name: dlt_meta
+            entry_point: run
+            named_parameters:
+              database: ${var.${bundle.target}_catalog_name}.${var.schema_name}
+              onboarding_file_path: ${var.people_onboarding_file_path}
+              bronze_dataflowspec_table: ${var.bronze_dataflowspecTable}
+              silver_dataflowspec_table: ${var.silver_dataflowspecTable}
+              uc_enabled: ${var.uc_enabled}
+              import_author: ${var.author}
+              version: ${var.version}
+              onboard_layer: bronze_silver
+              overwrite: "True"
+              env: ${bundle.target}
+
+          job_cluster_key: my_job_cluster
+
 
         - task_key: onboard_silver_fanout_tables
-          existing_cluster_id: "0805-034038-yqknazdr"
-          spark_python_task:
-            python_file: ${workspace.file_path}/src/onboard_silver_fanout_metadata_people.py
-            parameters:
-              - --catalog_database
-              - ${var.${bundle.target}_catalog_name}.${var.schema_name}
-              - --onboarding_file_path
-              - ${var.people_fanout_onboarding_file_path}
-              - --silver_dataflowspec_table
-              - ${var.silver_dataflowspecTable}
-              - --env
-              - ${bundle.target}
-              - --import_author
-              - ${var.author}
-              - --overwrite
-              - "False"
-              - --version
-              - ${var.version}
-              - --onboard_layer
-              - "silver"
-              - --uc_enabled
-              - ${var.uc_enabled}
+          libraries:
+            - pypi:
+                package: "dlt-meta"
+          # existing_cluster_id: "0805-034038-yqknazdr"
+          python_wheel_task:
+            package_name: dlt_meta
+            entry_point: run
+            named_parameters:
+              database: ${var.${bundle.target}_catalog_name}.${var.schema_name}
+              onboarding_file_path: ${var.people_fanout_onboarding_file_path}
+              silver_dataflowspec_table: ${var.silver_dataflowspecTable}
+              uc_enabled: ${var.uc_enabled}
+              import_author: ${var.author}
+              version: ${var.version}
+              onboard_layer: silver
+              overwrite: "False"
+              env: ${bundle.target}
           depends_on:
             - task_key: onboard_bronze_silver_tables
 
-        # This is alternative way using dlt_meta wheel package
-        
-        # - task_key: onboard_fanout_dlt_meta_task
-        #   existing_cluster_id: "0805-034038-yqknazdr"
-        #   python_wheel_task:
-        #     package_name: dlt_meta
-        #     entry_point: run
-        #     named_parameters:
-        #       database: ${var[${bundle.target}_catalog_name]}.${var.schema_name}
-        #       onboarding_file_path: ${var.people_fanout_onboarding_file_path}
-        #       silver_dataflowspec_table: ${var.silver_dataflowspecTable}
-        #       uc_enabled: "True"
-        #       import_author: Ganesh
-        #       version: v1
-        #       onboard_layer: silver
-        #       overwrite: "False"
-        #       env: dev
-        #   depends_on:
-        #     - task_key: onboard_dlt_meta_task
+          job_cluster_key: my_job_cluster
+
+
+      job_clusters:
+        - job_cluster_key: my_job_cluster
+          new_cluster:
+            spark_version: 16.4.x-photon-scala2.12
+            node_type_id: Standard_D3_v2
+            data_security_mode: SINGLE_USER #UC Enabled
+            num_workers: 0
+            spark_conf:
+              spark.databricks.cluster.profile: singleNode
+              spark.master: "local[*]"
+            custom_tags:
+              ResourceClass: SingleNode
 
     execute_pipelines_people:
       name: People - Raw_Br_Si Job
