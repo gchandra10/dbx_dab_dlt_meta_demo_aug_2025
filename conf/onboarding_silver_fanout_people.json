@@ -1,0 +1,30 @@
+[
+  {
+      "data_flow_id": "0070",
+      "data_flow_group": "my_people",
+      "bronze_database_dev": "gannychan.default",
+      "bronze_database_prod": "gannychan1.default",
+      "bronze_table": "people_bronze",
+      
+      "silver_database_dev": "gannychan.default",
+      "silver_database_prod": "gannychan1.default",
+      "silver_table": "people_silver_sal_below_50K",
+      
+      "silver_transformation_json_dev": "/Volumes/gannychan/default/dlt-meta-conf/silver_queries_people.json",
+      "silver_transformation_json_prod": "/Volumes/gannychan1/default/dlt-meta-conf/silver_queries_people.json"      
+  },
+  {
+      "data_flow_id": "0071",
+      "data_flow_group": "my_people",
+      "bronze_database_dev": "gannychan.default",
+      "bronze_database_prod": "gannychan1.default",
+      "bronze_table": "people_bronze",
+      
+      "silver_database_dev": "gannychan.default",
+      "silver_database_prod": "gannychan1.default",
+      "silver_table": "people_silver_sal_above_50K",
+      
+      "silver_transformation_json_dev": "/Volumes/gannychan/default/dlt-meta-conf/silver_queries_people.json",
+      "silver_transformation_json_prod": "/Volumes/gannychan1/default/dlt-meta-conf/silver_queries_people.json"
+  }        
+]
