@@ -10,7 +10,7 @@ resources:
       serverless: ${var.serverless_enabled}
       libraries:
         - notebook:
-            path: ${workspace.file_path}/src/deploy_pipeline_people
+            path: ${workspace.file_path}/notebooks/deploy_pipeline_people
 
       configuration:
         layer: bronze
@@ -30,7 +30,7 @@ resources:
       serverless: ${var.serverless_enabled}
       libraries:
         - notebook:
-            path: ${workspace.file_path}/src/deploy_pipeline_people
+            path: ${workspace.file_path}/notebooks/deploy_pipeline_people
 
       configuration:
         layer: silver

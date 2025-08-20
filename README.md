@@ -27,16 +27,16 @@ SET DATABRICKS_HOST=<>
 export DATABRICKS_HOST=<>
 ```
 
-- Assumes you have latest Databricks CLI installed and configured to your workspace.
+Assumes you have latest Databricks CLI installed and configured to your workspace.
   
    ```
       databricks configure --profile DEFAULT
    ```
-- Create two volumes dlt-meta-conf and dlt-meta-data under your catalog > schema
+Create two volumes dlt-meta-conf and dlt-meta-data under your catalog > schema
   - Upload the contents of conf including dqe into dlt-meta-conf volume
-  - Upload the people.csv from fixtures folder into dlt-meta-data volume
+  - Upload the people.csv from ```resources/data``` into dlt-meta-data volume
 
-- Update the ```resources/var_people.yml``` file with your Dev and Prod details. If you are not testing Prod, then have the same details for Prod also.
+Update the ```resources/var_people.yml``` file with your Dev and Prod details. If you are not testing Prod, then have the same details for Prod also.
 
 ## Details on files
 
